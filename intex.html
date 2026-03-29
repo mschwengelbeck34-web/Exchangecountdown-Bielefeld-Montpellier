@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exchange Countdown</title>
+
+  <!-- Google Font für runde Schrift -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="banner">
+    <h1>Exchange</h1>
+    <h2>Bielefeld - Montpellier</h2>
+  </header>
+
+  <section class="intro">
+    <h1 class="main-title">Exchange</h1>
+    <div class="title-line"></div>
+
+    <p class="sub-title">See Again</p>
+
+    <div class="text-box">
+      <p class="text">
+        Every day, every hour, every minute and every second until the German exchange partners arrive in Montpellier.
+      </p>
+    </div>
+  </section>
+
+  <!-- weniger Abstand -->
+  <div style="height: 80px;"></div>
+
+  <!-- Countdown Titel -->
+  <div class="countdown-header hidden">
+    <div class="line"></div>
+    <p>Arriving 05.05.2026</p>
+  </div>
+
+  <!-- Countdown -->
+  <section class="countdown hidden">
+    <div>
+      <div class="number" id="days">0</div>
+      <div class="label">Days</div>
+    </div>
+    <div>
+      <div class="number" id="hours">0</div>
+      <div class="label">Hours</div>
+    </div>
+    <div>
+      <div class="number" id="minutes">0</div>
+      <div class="label">Minutes</div>
+    </div>
+    <div>
+      <div class="number" id="seconds">0</div>
+      <div class="label">Seconds</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>All rights reserved to @Mika Schwengelbeck</p>
+  </footer>
+
+  <script>
+    const countdown = () => {
+      const countDate = new Date("May 5, 2026 19:00:00").getTime();
+      const now = new Date().getTime();
+      const gap = countDate - now;
+
+      if (gap < 0) return;
+
+      const second = 1000;
+      const minute = second * 60;
+      const hour = minute * 60;
+      const day = hour * 24;
+
+      document.getElementById("days").innerText = Math.floor(gap / day);
+      document.getElementById("hours").innerText = Math.floor((gap % day) / hour);
+      document.getElementById("minutes").innerText = Math.floor((gap % hour) / minute);
+      document.getElementById("seconds").innerText = Math.floor((gap % minute) / second);
+    };
+
+    setInterval(countdown, 1000);
+    countdown();
+
+    // Scroll Animation
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    });
+
+    document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
